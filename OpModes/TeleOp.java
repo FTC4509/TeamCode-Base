@@ -34,6 +34,9 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.Hook;
+// import org.firstinspires.ftc.teamcode.Subsystems.strafeDrive;
 import org.firstinspires.ftc.teamcode.ToolClasses.Controls;
 
 
@@ -41,30 +44,32 @@ import org.firstinspires.ftc.teamcode.ToolClasses.Controls;
 public class TeleOp extends OpMode{
 
     /* Declare OpMode members. */
-    private Robot robot = new Robot(hardwareMap);
-    private Controls controls = new Controls(gamepad1, gamepad2);
+    private Controls controls;
+    private Drive drive;
+    private Hook hook;
+    // private strafeDrive strafe;
+
 
     @Override
     public void init() {
 
-        robot.init();
+        controls = new Controls(gamepad1, gamepad2);
+        drive = new Drive(hardwareMap);
+        hook = new Hook(hardwareMap);
+        // strafe = new strafeDrive(hardwareMap);
+
         telemetry.addData("Say", "Initializing Complete");
 
     }
 
-    @Override
-    public void init_loop() {
-
-    }
-
-    @Override
     public void start() {
-
 
     }
 
     @Override
     public void loop() {
+        drive.tankDrive(controls.forward(), controls.rotation(), controls.strafe());
+         hook.hookMove(controls.getHook());
 
     }
 

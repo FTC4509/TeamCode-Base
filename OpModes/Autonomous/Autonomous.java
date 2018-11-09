@@ -33,14 +33,25 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode.OpModes.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Drive N' Turn")
+import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.Hook;
+
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Deploy")
 public class Autonomous extends LinearOpMode {
 
     //Robot robot = new Robot(hardwareMap);
+    Drive drive;
+    ElapsedTime timer;
+    Hook hook;
 
     @Override
     public void runOpMode(){
+
+        drive = new Drive(hardwareMap);
+        timer = new ElapsedTime();
+        hook = new Hook(hardwareMap);
 
 
         //Initialization Stuff Goes Here.
@@ -48,7 +59,24 @@ public class Autonomous extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        timer.startTime();
+
+        while (timer.milliseconds() >= 0 && timer.milliseconds() <= 20000) {
+            hook.hookMove(-1);
+        }
+
+        hook.hookMove(0);
+
+        while (timer.milliseconds() >= 20000 && timer.milliseconds() <= 23000) {
+            drive.tankDrive(0, 0, 0.4);
+        }
+
+        drive.tankDrive(0, 0, 0);
+
         //Actual Autonomous Code Goes Here
+        
+
+
 
     }
 }
