@@ -49,7 +49,6 @@ public class Autonomous extends LinearOpMode {
     @Override
     public void runOpMode(){
 
-        //new comment
         drive = new Drive(hardwareMap);
         timer = new ElapsedTime();
         hook = new Hook(hardwareMap);
